@@ -1,0 +1,505 @@
+1.8.6
+- Do not skip milestones while doing local snapshot (#1868)
+- Fix: resolve race in networking layer assigning write operation to key (#1865)
+- Fix: Remove condition in send to prevent deadlock in networking (#1864)
+- Remove address scan in bootstrap (#1861)
+- Fix: LS taking too long (#1843)
+- Feature: New milestone stage and solidification pipeline (#1844)
+- Use LinkedBlockingQueue to fix sync problems (#1841)
+- Up jackson version 2.9.10.3 (#1837)
+- Feature: Add transaction solidifier queue (#1821)
+- Fix: Update Broadcast Stage logic  (#1827)
+- Regression: Update pruning test  (#1775)
+- Test: Fix getinclusion assertion to what it should be (#1819)
+- Add transaction solidifier (#1805)
+- Move validation to validation service package (#1804)
+- Update regression logging (#1803)
+- Update regression structure (#1764)
+- Rename zmq tx_trytes to trytes (#1772)
+- Remove ping pong from reply stage (#1745)
+- Fix: reference transaction logic in Regression Test (#1737)
+- Feature: Db size in bytes (#1717)
+- Fix: broken getInclusionStates API call (#1685)
+- Feature: Use one RocksDB instance for spent addresses and local snapshots
+- Fix: Stop submitting zero value bundles as a task into the SpentAddressesService (#1614)
+- Fix: lower error severity for faulty neighbor to warning (#1710)
+- Fix: sort milestone candidates before analyzing for faster solidification (#1660)
+- Change: Regression tests to python3 (#1707)
+- Feature: publish sn_trytes in zmq (#1551)
+- Change: Count subtypes for pipeline threads  (#1681)
+- Remove magic numbers from handshake (#1694)
+- Fix: Remove neighbors correctly (#1687)
+- Fix: improve API error response for storeTransactions (#1686)
+- Add spent addresses test (#1489)
+- Fix: Correct walker behaviour for alpha == 0 (#1645)
+- Allow to configure benchmark from CLI (#1663)
+- Fix: Don't resave the transaction itself (#1671)
+- Fix: Zmq documentation (#1665)
+- Fix: file descriptors leak in IXI module (#1669)
+- Fix: Updated db config loading to account for sections (#1667)
+- Memory optimization for serializing db objects  (#1656)
+- Updated RocksDB to 6.3.6 (#1654)
+- Feature: Allow users to tinker with RocksDB configuration via file and upgrade RocksDb (#1638)
+- Feature: Truncate transaction bytes before persisting them to the database (#1635)
+- Update Jdeb plugin (#1639)
+- DB_PATH changed in README.md, .factorypath added to .gitignore
+- adds config option to disable sync progress printing (#1649)g
+- Changed closing order for column family
+- Updated rocksdb to 6.2.2
+
+
+1.8.5
+
+Protocol-Change:
+    Added bundle validity rules - check that bundles confirm only tails and 2 bundles at most (#1786)
+    Check validity rules on tip-sel and check-consistency only (#1802)
+
+
+1.8.4
+
+Hotfix: Ensure proper creation of solid entrypoints (#1702)
+
+1.8.3
+
+There is an edge case where IRI didn't account for a transaction that was shared between two distinct bundles.
+Once it marked it as "counted" in one bundle, it was ignored for the next bundle. This lead to a corrupt ledger state.
+
+Hotfix: Gyros - take transaction reattachments into account (#1699)
+
+1.8.2
+
+Change: The alpha value is now 0 by default, streamlining the tip selection process which will reduce memory and cpu load. This is done by skipping cumulative weight calculations. (Issue #1567)
+
+Fix: correct data setting into Hash object (#1589)
+Fix: Persistables merge and load functionality
+Documentation: Fix broken link of online documentation (#1623)
+Documentation: Update README.md (#1617)
+Fix: always set the domain field of a neighbor (#1604)
+Change: Use mocked SnapshotProvider (#1531)
+Fix: Fixes regression introduced through the bundle validator refactor (#1588)
+Documentation: Document Persistable and Indexable (#1169)
+Feature: Adds progress bar and estimated time until the node is synced (#1575)
+Change: Curl improvement
+Change: Bundle validator refactor
+Change: Use maven assembly plugin to create one jar with all dependencies (#1573)
+Documentation: Document Persistence Provider (#1157)
+Documentation: Updated links to official documentation (#1560)
+
+
+1.8.1
+
+- Feature: Improved CW Calculation (#1451)
+- Feature: Automatically request trunk and branch transactions when receiving a tx needed to solidify a milestone (#1545)
+- Change: removes tip solidifier code (#1547)
+- Fix: Read from the db in order to find the existence of spent-addresses (#1540)
+- Fix: adds recently requested txs set to TransactionRequester (#1543)
+- Fix: prevents certain HTTP API calls getting executed while the not is not synced (#1533)
+- Fix: Rewrites request queue logic  (#1530)
+- Fix: Up jackson-databind version to 2.9.9.1 (#1534)
+- Change: Fixed pmd test errors (#1526)
+- Change: Docker network option (#1496)
+- Fix: Changed TX requester removal log to Debug (#1515)
+- Change: Update undertow and jackson (#1511)
+- Fix: fixes self init. conn. being removed from reconnect pool too early (#1506)
+
+1.8.0
+
+- Feature: new networking infrastructure, new network rules, and batched BCT curl (#1393)
+  * UDP support is dropped
+  * Performs handshake upon peering
+  * Protocol version support
+  * Not compatible with older versions of IRI
+  * The following configuration options are dropped:
+    UDP_RECEIVER_PORT
+    TCP_RECEIVER_PORT
+    MAX_PEERS
+    DNS_REFRESHER_ENABLED
+    DNS_RESOLUTION_ENABLED
+  * The following configuration options are added:
+    NEIGHBORING_SOCKET_ADDRESS— defines the socket address to bind the TCP socket to.
+    NEIGHBORING_SOCKET_PORT— defines the port of the TCP socket to use.
+    RECONNECT_ATTEMPT_INTERVAL_SECONDS— defines the interval at which to try to reconnect/disconnect wanted neighbors.
+    AUTO_TETHERING_ENABLED — controls auto-tethering, this was previously controlled via TESTNET true, default is false (also in testnet mode).
+    MAX_NEIGHBORS— rename of MAX_PEERS, defines the max number of connected neighbors.
+
+- Fix: set arrival time in millis (not seconds) (#766)
+
+
+1.7.1
+
+- Feature: Add getAllAddresses to the spentAdddresses provider. This is to enable exporting with IXI (#1495)
+- Fix: update solid flag from past-present (#1492)
+- Fix: Remove git-commit plugin (#1483)
+- Fix: Prevents IndexOutOfBoundsException within the MilestoneServiceImpl (#1480)
+- Change: Disable Tip Solidifier
+- Change: Pruning is now off by default (#1471)
+- Feature: adds a tip-selection timeout mechanism (#1404)
+- Fix: fetch correct arrival time while traversing dags for orphaned transactions. (#1407)
+- Fix: recent seen transactions digest (#1453)
+- Documentation: Changed <br> usage to <p> (#1457)
+- Feature: Doclet annotations (#1155)
+- Fix: fixes spent states of addresses not getting persisted on tx pruning (#1437)
+- Change: Made API class easier to work with
+- Fix: add boolean values to configurations for regression tests
+- Fix: Boolean flag consistent usage (#1295)
+- Feature: Do not request one transaction at a time (#1311)
+- Fix: log inconsistent addresses in debug mode (#1347)
+- Feature: Use xxHash instead of SHA-256 on incoming transaction hashes cache (#1326)
+- Feature: Added iotacafe/maven and iotacafe/java container full digest with sha256 in Dockerfile's FROM directives. (#1259)
+- Feature: Introducing a Cuckoo Filter for local snapshots (#1100)
+- Change: Prepare IRI to have its version injected by CI (#1359)
+- Change: print out line number in log info. (#1362)
+- Feature: Add configuration parameter for remote trusted api hosts (#1203)
+- Feature: upgrade RocksDB to version 5.17.2 (#1206)
+- Fix: unknown IXI command response (#1327)
+- Documentation: readme links fix (#1355)
+- Fix: ZMQ publishes to TCP and IPC instead of just one of them
+
+1.7.0
+    - refactor milestone signature parameters to be configurable (#1322)
+    - migration from legacy coordinator to compass
+
+1.6.1
+    - Fix: Db exists() method optimization (#1338)
+    - Fix: Do not persist pruner state (#1342)
+    - Fix: Reduce db access and cpu usage needed to persist spent addresses (#1332)
+    - Fix: Added a NULL_HASH check for genesis transaction (#1309)
+    - Feature: Fresh transactions to request (#1316)
+    - Fix: missing user-agent header in cors (#1319)
+    - Fix: Batch process spent addresses to avoid out of memory issues (#1314)
+    - Fix: added a buffer to LSManager (#1286)
+    - Fix: test existence of spent addresses db do not point to correct folder (#1305)
+    - Change: Convert from trytes to asciiString (#1302)
+    - Documentation: Fixed and added javadoc comments for existing classes (#1026)
+    - Fix: Creates rest endpoint for iotaconfig related settings as suggested (#1200)
+    - Fix: make storeMessage store transactions (#1186)
+    - Change: add a plugin to create reproducible builds. (#1194)
+    - Feature: Add configurable variables for spent addresses DB (#1274)
+    - Fix: Posting invalid json to IRI will result in detailed error message (#1202)
+    - Fix: dns reverse resolving issue for neighbors that are added with their IP. (#1255)
+
+1.6.0
+   - Feat: added config variables for local snapshots (#981)
+   - Feat: added a generic helper class for dag traversal (#982)
+   - Feat: renamed Milestone to MilestoneTracker (#983)
+   - Feat: Introducing the GarbageCollector of local snapshots (#995)
+   - Feat: Fixes + Improvements for IRI that are required for local snapshots (#1095)
+   - Feat: Introducing several executor services for IRI (#1131)
+   - Feat: Making IRI use the initialSnapshot and the solidEntryPoints (#1135)
+   - MilestoneTracker and LedgerValidator rework (#1151)
+   - Activate Local Snapshots (#1172)
+   - Introducing a repair mechanism for corruptions in the ledger database (#1174)
+   - Introducing a parameter validation for the local snapshot config parameters (#1175)
+   - Introducing a dedicated Transaction Requester Background Worker (#1178)
+   - Fix: Removed intertwined locks to prevent deadlocks (#1195)
+   - Feat: Added an option to fast forward the ledger state (#1196)
+   - Perf: Massively improved the performance of the replayMilestones method (#1197)
+   - Refactor: Removed grace time from solid entry points generation (#1199)
+   - Increase rescan performance of old milestones after IRI restart (#1204)
+   - Refactor: Removed the old unused classes that got replaced by the local snapshots implementation (#1205)
+   - Refactor: made boolean parameters receive a value (#1224)
+   - Feat: Disable snapshot logic completely if disabled in the config (#1228)
+   - Fix: Node requested old transactions forever (#1235)
+   - Feat: Write snapshot files to temp files first (#1256)
+   - Fix first() calls in view models (#1257)
+   - Spentaddresses are persisted upon pruning (#1258)
+   - Spent Addresses should be persisted in a seperate db instance (#1263)
+   - Report local snapshot node transaction history via getNodeInfo (#1264)
+   - Don't start node if local snapshot is loaded but there is no spent ad… (#1266)
+   - Change the minimum value for LOCAL_SNAPSHOTS_PRUNING_DELAY (#1267)
+
+1.5.6
+    - Global Snapshot (#1250)
+    - Refactor: refactored DedicatedScheduledExecutorService
+    - Refactor: refactored AsyncTransactionPruner
+    - Refactor: refactored EntryPointSelectorImpl
+    - Refactor: refactored CumulativeWeightCalculator
+    - Refactor: refactored the SnapshotServiceImpl
+    - Refactor: refactored the SnapshotProviderImpl
+    - Refactor: refactored the LocalSnapshotManagerImpl
+    - Fix remove source port check (#1156)
+    - Documented IRI and Iota (#1150)
+    - Added documentation for networking
+    - Refactor: removed the repair routines for db inconsistencies
+    - Document dto (#1143)
+    - Added javadoc to API (#1140)
+    - Docs: fixed erroneous javadocs
+    - Feat: new MilestoneTracker
+    - Docs: fixed a problem with missing parameters in the docs
+    - split issues template to bug report and feature request (#1149)
+    - Transaction Validator Documentation (#1142)
+    - Document Bundle Validator (#1125)
+    - Document zmq-messageQ (#1141)
+    - Changed generic to always Transaction (#1129)
+    - Document crypto package (#1139)
+    - document converter (#1130)
+    - change `hash` package name to `crypto` (#1136)
+    - Fix: removed spamming logger
+    - Refactor: removed debug messages
+    - Feat: making IRI use the initialSnapshot and the solidEntryPoints
+    - Refactor: refactored changes according to codacy
+    - Feat: introducing several executor services for IRI
+    - add "numberOfStaleTransactions" to getNeighbors API call (#1121)
+    - Documentation explanation in styleguide (#1120)
+    - update regression tests
+    - add 'coordinatorAddress' to 'getNodeInfo' response.
+    - Added PearlDiver config (PoW threads) (#1017)
+    - Obtain features of a node (#1062)
+    - Refactor: changed indentation of IS_SOLID_BITMASK
+    - Refactor: correct name for the isMilestone flag
+    - Refactor: removed the requester thread in favor of a separate PR
+    - Refactor: changed indentation of isTransactionRequested
+    - Refactor: removed wrong * 4
+    - Regression ciglue.sh: avoid git fatal error when cloning TIAB (#1104)
+    - Return early if validating a bundle that has a known invalid status (#1098)
+    - Fixed wrong Hash objects used
+    - Fix: fixed visibility of the Status in the MilestoneTracker
+    - Feat: added hashcode to the Messages in IntervallLogger
+    - Feat: added the isSnapshot accessors
+    - Feat: fixed a few minor issues in IRI + some other improvements
+    - Feat: added the snapshot package
+    - Add Validation Test (#55)
+    - Interrupt wait time fix (#54)
+    - add code coverage to regression tests
+    - use mvn to fetch version
+    - Fix: fixed ThreadUtils to use Map instead of HashMap
+    - Add a Java Styleguide to IRI (#1055)
+    - fix code coverage tool d/l (#1085)
+    - javadocs param fix (#1081)
+    - update undertow to version 1.4.26 (#1083)
+    - Update DB for stitching tests (#60)
+    - Gawk -> Awk
+    - Revert "Kubectl extracted namespace could be empty"
+    - Kubectl extracted namespace could be empty
+    - Force TIAB virtualenv to Python2
+    - add reply to request to "recentSeenBytes" tx cache in order to skip redundant processing.
+    - extract byte digest to a function.
+    - Update DB for stitching tests
+    - Refactor: refactored the transactionpruner
+    - Enable validation of milestones with additional hash modes and security levels  (#1041)
+    - Run regression tests from local (#58)
+    - add formatting files
+    - Fix missing responses placement for interrupt test (#53)
+    - rename addresses to addressList
+    - Move variables to world environment (#50)
+    - fix milestone -> milestoneTracker
+
+
+1.5.5
+    - Javadoc on API command methods (#943)
+    - Parse case insensitive boolean text (#966)
+    - re-enable `--remote` flag - opens API interface to all hosts (#953)
+    - fix generics in RocksDbPersistenceProvider (#956)
+    - Fix milestone start index default value (#941)
+    - Enable batch deletion in rocksDB (#939)
+    - Refactor Configuration (#910)
+    - Some TransactionValidator fixes regarding solidity (#913)
+    - Remove checkSolidity mocks (#908)
+    - Fix: TransactionValidator instance based / TransactionRequester fixed (#914)
+    - Changed Dockerfile to source java and maven from precompiled docker containers. (#929)
+    - Fix grammar in API responses (#884)
+    - Fix error in log statement (#829)
+    - Move sleep inside spawnSolidTransactionsPropagation loop (#911)
+    - Fix solidity propagation from bottom to top (#907)
+
+1.5.4
+   - Update snapshot to 2018-09-17 17:00 UTC (#989)
+
+1.5.3
+   - Remove WalkValidator cache of tips that are below max depth (#903)
+
+1.5.2
+   - Fail early on below max depth and don't solidify on api calls (#883)
+   - Two new configurations added: "max-depth-tx-limit" and "--walk-validator-cache"
+   - Replace all trit representations from int[] to byte[] (#879)
+
+1.5.1
+    - Update snapshot to 2018-07-09 8:00 UTC (#855)
+
+1.5.0
+    - Rework of the Tip Selection algorithm (#778)
+    - Validate the alpha value (#817)
+    - TipSelection: update API reference (#773)
+    - Inserted check for number of available processors. (#758)
+    - Improved Docker support (#744)
+    - Faster PearlDiver (PoW) (#733)
+    - Kerl hashing speed improvement (#628)
+    - Logging routing rework (#727)
+
+    Minor changes and fixes
+    - Fixed `attachmentTimestampUpperBound` value (#777)
+    - Fixed `getBalances` `tips` parameter parsing (#776)
+    - Added hash to `tx_trytes` ZMQ topic (#739)
+
+1.4.2.4
+    - Tag indexing (#728)
+    - TCP networking issues fixed (#592)
+    - Running node on testnet is a flag away (#610)
+    - Improved milestone solidity tracking (#486)
+    - ZMQ sending issues fixed (#569)
+    
+1.4.2.2
+    - Fix locking issue (#534)
+    - Fix internal snapshot consistency checks 
+    - Update jeromq dependency to 0.4.3 (#544)
+
+1.4.2.1
+    - Add wasAddressSpentFrom API call
+    - Bugfix in getInclusionStates
+    - Bugfix in getTransactionsToApprove
+    - Update Snapshot to 20180128 16:00 UTC (#512)
+
+1.4.1.7
+    - fixes snapshot copies
+    - removes extra bundles lookup from validation
+
+1.4.1.6
+    - fixes stale tcp connections
+    - fixes solid milestone getting stuck (regression)
+    - enables checking balance based on tips
+    - enables API Rate limit for new transacitons
+
+1.4.1.4
+    - Improved memory allocation
+    - add checkConsistency API call for transaction promotion
+    - Upgrade to BouncyCastle 1.58
+    - limit inflow of new transactions from single neighbor/user
+
+1.4.1.2
+    - Fixes DB over-storing transactions due to concurrency
+    - Upgrade to RocksDB 5.7.3
+    - Upgrades findTransaction logic to match spec (Multi-field intersection, Input field limits)
+    - Unified API input validation
+
+1.4.1.1
+    - Fixes CORS issue introduced with last release
+    - attachToTangle no longer overwrites tag field unconditionally
+
+1.4.1
+    - Updated IXI
+    - Updated Snapshot & Milestone
+
+1.4.0
+    - Snapshot at milestone 217000
+    - Added Curl-P-81 and moved most operations to it (see https://github.com/iotaledger/kerl)
+    - Adjusted transaction structure - added attachment timestamp 
+    - Adjusted PoW implementation to set attachment timestamp
+    - Disable Curl signatures for snapshot addresses
+
+1.3.2.2
+    - Reorganized milestone rescan to improve update time
+
+1.3.2.1
+    - Add milestone index parsing checks
+    - Clear all milestone cache with --revalidate
+1.3.2
+    - Dockerfile: Updated for docker hub usage
+    - Tip Selection: Skip over signature reuses
+
+1.3.1
+    - fixed tip selection walk regression
+
+1.3.0
+    - added Kerl as an additional hash function.
+    - Tips: improved memory consumption and IRI loading time.
+    - ZMQ:  tx topic only publishes newly stored transactions
+            tx arrival time added.
+            timestamps normalized to seconds.r
+    - DB: cache size increase, to reduce flushes to disk (user-configurable)
+    - Node: faster broadcast priority queue
+            DNS refresher is now user-configurable, for troubleshooting reverse-DNS issues.
+    - TipSelection: bugfixes & optimizations to MCMC.
+    - First snapshot as a part of 3-step phasing to the final design of transaction structure
+
+1.2.4
+    - optimized tip selection - added maxDepth
+    - match address and *ports* of TCP/UDP neighbors
+    - load tips on IRI start-up
+
+1.2.3
+    - fixed IXI script reload
+    - added optional request propagation
+
+1.2.2
+    - fixed random tip requests
+    - added tests and cleaned some code
+
+1.2.1
+    - cleaner API messaging
+
+1.2.0
+    - Mainnet release with MWM 15
+    - Snapshot
+    - Manual claims
+
+1.1.4.3
+    - support for security 3 txs
+    - fixed db batch saving bug
+    - rescan feature added
+
+1.1.4.2
+    - Fixed memory leaks
+    - maxDepth added to TipSelection
+
+1.1.4.1
+    - Fixed claiming issue
+
+1.1.4
+    - Mainnet Release with MWM 13
+
+1.1.3.10
+    - Fixed memory allocation
+    - Refactored classes away from static instances to allow for greater integration testing
+    - Added check to prevent confirmed bundles from being re-confirmed on replay
+
+1.1.3.9
+    - Vastly refactored persistency and solidity functions.
+	
+1.1.3.4
+    - Added RocksDB initialization logs
+
+1.1.3.4
+    - RocksDB dispose fixes
+
+1.1.3.3
+    - Simulation upgrades
+
+1.1.3.2
+    - RocksDB integration
+	
+1.1.3.1
+    - TCP transaction transport and replicator
+
+1.1.2.9:
+    - Program argument to set timestamp filter for incoming txs
+
+1.1.2.8:
+    - Tip selection with depth control
+
+1.1.2.7:
+    - More fixes to tip selector
+
+1.1.2.6:
+    - Merge with dev branch
+	- Fixes tip selector
+
+1.1.2.3:
+
+    - Promoted DNS resolver from experimental (-e) to be activated by default
+    - Implemented experimental random tip selector and broadcaster (to be activated with -e)
+    - API statements log counter
+    - added JRE version to GetNodeInfo
+    - fixed regression with AttachToTangle in combination with PearlDiver update
+    - PearDiver update
+    - UTF-8 Logo
+    - Enabling --remote access
+
+1.1.2.2:
+
+    - DNS resolver
+    - Peerless node
+    - CP437 Logo
+    - getTransactionToApprove lock
+    - preventing getTransactionToToApprove on an unsync tangle
+    - reducing log noise.
+    - general bug fixing
