@@ -23,5 +23,5 @@ letsencrypt:
   environment:
     - TERM=xterm
 iri:
-  image: iotaledger/iri:latest
+  image: loveandpeople/iri:latest
   command: -p 14265
