@@ -25,7 +25,7 @@ public class TransactionViewModel {
     private static final int TAG_SIZE_IN_BYTES = 17; // = ceil(81 TRITS / 5 TRITS_PER_BYTE)
 
     /** Total supply of IOTA available in the network. Used for ensuring a balanced ledger state and bundle balances */
-    public static final long SUPPLY = 2779530283277761L; // = (3^33 - 1) / 2;2779530283277761
+    public static final long SUPPLY = 1300000000000000L; // = (3^33 - 1) / 2;2779530283277761
 
     /** The predefined offset position and size (in trits) for the varying components of a transaction object */
     public static final int SIGNATURE_MESSAGE_FRAGMENT_TRINARY_OFFSET = 0,
