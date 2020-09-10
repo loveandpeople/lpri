@@ -6,9 +6,9 @@ Maintainer: Paul Handy <paul@iota.org>
 Build-Depends: maven (>= 3)
 Depends: jdk (>= 1.8)
 Standards-Version: 3.9.8
-Homepage: https://iota.org
-Vcs-Git: https://github.com/iotaledger/iri.git
-Vcs-Browser: https://github.com/iotaledger/iri.git
+Homepage: https://dag-lp.com
+Vcs-Git: https://github.com/loveandpeople/lpri.git
+Vcs-Browser: https://github.com/loveandpeople/lpri.git
 Architecture: any
 Depends: default-jre | java8-runtime
 Description: [[description]]
